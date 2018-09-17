@@ -1,1 +1,59 @@
-#Dit is een inleiding en eerste Commit test
+# Cisco ASA 5500 configuration commands
+
+# Command to bind an IP address to an interface on the Cisco ASA 5500 
+
+IP address (IP address and subnet)
+
+nameif (group)
+
+[example]ß
+IP address 192.168.2.1 255.255.255.0
+nameif inside
+[/example]
+
+# Commands used to configure SSH on a Cisco ASA 5500
+
+configure enable password (password)
+
+username (username) password (password
+
+aaa authentication ssh console LOCAL
+
+crypto key generate rsa modulus (128-1024)
+
+ssh (IP address) trust
+
+ssh version 2
+
+[example]
+configure enable password cisco
+username cisco password cisco
+aaa authentication ssh console LOCAL
+crypto key generate rsa modulus 1024
+ssh version 2
+[/example]
+
+# Commands used to configure dynamic nat(source nat) on the Cisco ASA 5500
+
+object network (object_name) {real source addresses} {host ip}
+host (IP address) | range (IP address_1 IP address_2) | subnet (subnet_address netmask)
+exit
+
+[example]
+object network inside_host
+host 192.168.2.10 255.255.255.0
+exit
+[/example]
+
+
+object network (object_name) {mapped source addresses} {gateway ip}
+host (IP address) | range (IP address_1 IP address_2) | subnet (subnet_address netmask)
+exit
+
+[example]
+object network inside_gateway
+host 192.168.2.1 255.255.255.0
+exit
+[/example]
+
+object network (object_name) {real destination address} {
