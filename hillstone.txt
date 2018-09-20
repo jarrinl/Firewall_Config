@@ -9,7 +9,7 @@ Configuring a Hillstone SG6000 E1700
 - (config-admin) exit
 - interface "ethernet0/0"
 - (config-if-eth0/0) manage "ssh" 
-- (config-if-eth0/0) 
+- (config-if-eth0/0) IP address 192.168.1.1/24
 
 #Configuring interface ethernet0/1 and ethernet0/2 to gain access to the internet
 - (config) interface ethernet0/1
@@ -34,3 +34,12 @@ Configuring a Hillstone SG6000 E1700
 - (config) ip vrouter "trust-vr"
 - (config-vrouter) snatrule id 1 from "any" to "any" eif "ethernet0/2" trans-to eif-ip mode dynamicport
 - (config-vrouter) exit
+
+#Summary of abbreviations and terms
+* src: Source
+* dst: Destination
+* addr: Address
+* eif: Egress interface
+* eif-ip: Egress interface IPv4 address
+* egress: Route that leaves the network | Literal translation: The action of going out or leaving a place
+* dynamicport: Port numbers that are available for use by any application to using in communicating with any other application
