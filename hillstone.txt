@@ -1,0 +1,36 @@
+Configuring a Hillstone SG6000 E1700
+
+#SSH
+
+- (config) ssh pw-auth
+- (config) admin user "support" 
+- (config-admin) access "any"
+- (config-admin) password "Support&67"
+- (config-admin) exit
+- interface "ethernet0/0"
+- (config-if-eth0/0) manage "ssh" 
+- (config-if-eth0/0) 
+
+#Configuring interface ethernet0/1 and ethernet0/2 to gain access to the internet
+- (config) interface ethernet0/1
+- (config-if-eth0/1) IP address "192.168.120.99"
+- (config-if-eth0/1) zone "trust"
+- (config-if-eth0/1) exit
+- (config) address "LAN_Network"
+- (config-addr) ip "192.168.120.0/24"
+- (config-addr) exit
+- (config) rule id "1"
+- (config-policy-rule) action "permit"
+- (config-policy-rule) src-zone "trust"
+- (config-policy-rule) src-addr "LAN_Network"
+- (config-policy-rule) dst-zone "untrust"
+- (config-policy-rule) dst-addr "any"
+- (config-policy-rule) service "any"
+- (config-policy-rule) exit
+- (config) interface ethernet0/2
+- (config-if-eth0/2) IP address dhcp setroute
+- (config-if-eth0/2) zone "untrust"
+- (config-if-eth0/2) exit
+- (config) ip vrouter "trust-vr"
+- (config-vrouter) snatrule id 1 from "any" to "any" eif "ethernet0/2" trans-to eif-ip mode dynamicport
+- (config-vrouter) exit

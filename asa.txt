@@ -1,4 +1,4 @@
-# Cisco ASA 5500 configuration commands
+# Cisco ASA 5500 configuration commandsject Objectdhcpd
 
 # Command to bind an IP address to an interface on the Cisco ASA 5500 
 
@@ -11,7 +11,7 @@ IP address 192.168.2.1 255.255.255.0
 nameif inside
 [/example]
 
-# Commands used to configure SSH on a Cisco ASA 5500
+# Commands used to configure SSH and use it on a Cisco ASA 5500
 
 configure enable password (password)
 
@@ -31,6 +31,7 @@ username cisco password cisco
 aaa authentication ssh console LOCAL
 crypto key generate rsa modulus 1024
 ssh version 2
+ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 cisco@192.168.2.1
 [/example]
 
 # Commands used to configure dynamic nat(source nat) on the Cisco ASA 5500
@@ -56,4 +57,15 @@ host 192.168.2.1 255.255.255.0
 exit
 [/example]
 
-object network (object_name) {real destination address} {
+object network (object_name) {real destination address} {IP address you sent your packets to}
+host (IP address) | range (IP address_1 IP_address_2) | subnet (subnet_address netmask)
+exit
+
+[example]
+object network outside_dns
+host 192.168.120.20 255.255.255.0
+host 192.168.120.20 255.255.255.0
+exit 
+[/example]
+
+nat source 
